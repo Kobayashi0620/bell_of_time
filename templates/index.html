@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+
+    <title>ﾄｷﾉｶﾈ</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+        integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+    <audio id="templeBell" src="../static/audios/templeBell.mp3" preload="auto"></audio>
+    <div class="container">
+
+        <p class="salary_display">￥ <span id="salary">----</span> </p>
+        <p class="salary_display"><span id="timer">00:00:00</span></p>
+
+        <div>
+            <button id="start_stop" class="btn btn-lg btn-primary">START</button>
+        </div>
+
+        <!-- 設定画面切替 -->
+        <div>
+            <label><input id="noneSet" type="radio" name="switchSet" onclick="switchSet()" checked></label>
+            <label><input id="switchSalarySet" type="radio" name="switchSet" onclick="switchSet()"></label>
+            <label><input id="switchIntervalSet" type="radio" name="switchSet" onclick="switchSet()"></label>
+            <label><input id="switchAlarmSet" type="radio" name="switchSet" onclick="switchSet()"></label>
+        </div>
+
+        <!-- 時給設定（選択、入力切替） -->
+        <div id="salarySet">
+            <h3>時給【選択｜入力】切り替え</h3>
+            <div>
+                <label><input id="switchSelectType" type="radio" name="switchType" onclick="formSwitch()"
+                        checked>選択形式</label>
+                <label><input id="switchInputType" type="radio" name="switchType" onclick="formSwitch()">入力形式</label>
+            </div>
+            <br>
+
+            <!-- 選択形式 -->
+            <div id="selectType">
+                <select id="selectWage">
+                    <option value="" disabled selected>地域（時給）の選択</option>
+                    {% for key, value in wage.items() %}
+                    <option value="{{value}}">{{key}} ￥{{value}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- 入力形式 -->
+            <div id="inputType">
+                <input id="inputWage" type="number" oninput="inputChange()">
+            </div>
+
+            <!-- 時給設定の表示 -->
+            <div id="displayValue" class="salary_display segment_font">1113</div>
+        </div>
+
+        <!-- 描画間隔の設定 -->
+        <div id="intervalSet">
+            <h3>給料の表示間隔</h3>
+            <select id="drawInterval">
+                <option value="" disabled selected>表示間隔の選択</option>
+                <option value="selectMilli">ミリ秒</option>
+                <option value="selectCenti">センチ秒</option>
+                <option value="selectSecond">秒</option>
+                <option value="selectMinute">分</option>
+                <option value="selectHour">時</option>
+            </select>
+            <!-- 描画間隔設定の表示 -->
+            <h4 id="displayTime"></h4>
+        </div>
+
+        <!-- 時の鐘（アラーム）時間設定 -->
+        <div id="alarmSet">
+            <h3>時の鐘</h3>
+            <input id="setHour" type="number" min="0" max="23" oninput="javascript: this.value = this.value.slice(0, 2)"
+                oninput="inputChange()">
+            <input id="setMinute" type="number" min="0" max="59"
+                oninput="javascript: this.value = this.value.slice(0, 2)" oninput="inputChange()">
+            <input id="setSecond" type="number" min="0" max="59"
+                oninput="javascript: this.value = this.value.slice(0, 2)" oninput="inputChange()">
+
+            <!-- 時の鐘（アラーム）設定時間表示 -->
+            <div class="salary_display segment_font">
+                <p>
+                    <span id="displayHour">00</span>
+                    :
+                    <span id="displayMinute">00</span>
+                    :
+                    <span id="displaySecond">00</span>
+                </p>
+            </div>
+        </div>
+
+        <footer>
+            <p>最低賃金の詳細は
+                <a
+                    href="https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/roudoukijun/minimumichiran/index.html">
+                    こちら
+                </a>
+                をご確認ください。
+            </p>
+        </footer>
+
+        <script src="{{ url_for('static', filename='js/salary_timer.js') }}"></script>
+
+    </div>
+</body>
+
+</html>
