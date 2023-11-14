@@ -228,6 +228,7 @@ var salaryTimer = function () {
     //鳴鐘（アラーム）条件式
     if((getHour == hours && getMinute == minutes && getSecond == seconds) && (!(getHour == "00" && getMinute == "00" && getSecond == "00"))){
         TEMPLE_BELL.play();
+        alert('スマホ・タブレットだと音が鳴らないよ。\n鳴らない原因はiOS端末では音声や動画の自動再生を行うことができないかららしいよ。\n改修しようね。覚えてたら。\n一応リンクも貼っとく\nhttps://haruppooooo.com/programming/281/')
     }
 
     document.getElementById('salary').innerHTML = NUMBER_FORMAT.format(salary_time);
