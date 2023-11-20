@@ -4,6 +4,8 @@ from flask_bootstrap import Bootstrap
 app = Flask(__name__)
 Bootstrap(app)
 
+saveDataLists = []
+
 wage = {
     "北海道": 960,
     "青森県": 898,
@@ -58,3 +60,24 @@ wage = {
 @app.route("/")
 def main():
     return render_template("index.html", wage=wage)
+
+@app.route("/save", methods=['GET', 'POST'])
+def saveData():
+
+    start_time = request.form.get('start_time')
+    work_salary = request.form.get('work_salary')
+    working_time = request.form.get('working_time')
+
+    if start_time != None and work_salary != None and working_time != None:
+        dataSava = start_time + "|" + work_salary + "|" + working_time
+
+        with open('saveData.txt', 'a') as f:
+            f.write("%s\n" % dataSava)
+    else:
+        with open('saveData.txt', 'r') as f:
+            saveDataLists = f.read().split("\n")
+
+    with open('saveData.txt', 'r') as f:
+        saveDataLists = f.read().split("\n")
+
+    return render_template("save.html", saveDataLists=saveDataLists)

@@ -20,6 +20,8 @@
     <audio id="templeBell" src="../static/audios/templeBell.mp3" preload="auto"></audio>
     <div class="container">
 
+        <a href="/save">稼働記録</a>
+
         <p class="salary_display">￥ <span id="salary">----</span> </p>
         <p class="salary_display"><span id="timer">00:00:00</span></p>
 
@@ -99,6 +101,20 @@
                     <span id="displaySecond">00</span>
                 </p>
             </div>
+        </div>
+
+        <!-- データの保存機能 -->
+        <div id="dataSave">
+            <h3>記録機能</h3>
+
+            <!-- 送信フォーム -->
+            <form action="/save" method="POST">
+                <input id="a" name="start_time" readonly type="text" placeholder="開始日時">
+                <input id="b" name="work_salary" readonly type="text" placeholder="稼働給">
+                <input id="c" name="working_time" readonly type="text" placeholder="稼働時間">
+                <input readonly type="submit" name="dataSave" value="記録">
+            </form>
+
         </div>
 
         <footer>

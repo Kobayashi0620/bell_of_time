@@ -233,6 +233,10 @@ var salaryTimer = function () {
 
     document.getElementById('salary').innerHTML = NUMBER_FORMAT.format(salary_time);
     document.getElementById('timer').innerHTML = hours + ':' + minutes + ':' + seconds;
+
+    document.getElementById('a').value = start.toLocaleString({ timeZone: 'Asia/Tokyo' });
+    document.getElementById('b').value = "￥" + NUMBER_FORMAT.format(salary_time);
+    document.getElementById('c').value = hours + ':' + minutes + ':' + seconds;
 }
 
 // // 給料用、ゼロを追加する
